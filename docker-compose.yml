@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  payment-service:
+    image: payment-api-service:latest
+    container_name: payment-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/testdb
+      - SPRING_DATASOURCE_USERNAME=vbolof
+      - SPRING_DATASOURCE_PASSWORD=devadmin
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:13-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: vbolof
+      POSTGRES_PASSWORD: devadmin
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"

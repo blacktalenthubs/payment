@@ -15,7 +15,6 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     public Account createAccount(Account account) {
-        // Hash the password before saving (using any preferred hashing algorithm)
         account.setPasswordHash(hashPassword(account.getPasswordHash()));
         return accountRepository.save(account);
     }
@@ -45,9 +44,7 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
-    // Example password hashing (this should be done with a proper hashing library like BCrypt)
     private String hashPassword(String password) {
-        // You can replace this with BCrypt or any other algorithm suitable for your use case
         return Integer.toHexString(password.hashCode());
     }
 }
